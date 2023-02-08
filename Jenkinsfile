@@ -7,9 +7,10 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps {
-        sh 'docker images'
-        sh 'docker build -t getting-started .'
-        sh 'docker run -d -p 3000:3000 getting-started'
+        sh 'sudo docker images'
+        sh 'sudo git clone https://github.com/docker/getting-started.git'
+        sh 'sudo docker build -t getting-started .'
+        sh 'sudo docker run -d -p 3000:3000 getting-started'
         
       }
     }
