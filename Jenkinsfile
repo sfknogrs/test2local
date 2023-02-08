@@ -7,7 +7,6 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps {
-        sh 'git clone https://github.com/docker/getting-started.git'
         sh 'docker build -t getting-started .'
         sh 'docker run -d -p 3000:3000 getting-started'
         
