@@ -22,6 +22,5 @@ pipeline {
         sh 'terraform apple -auto-approve'
         sh 'terraform output'
       }
-    }
-    
-    
+    } 
+  }   
