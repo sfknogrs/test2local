@@ -9,7 +9,6 @@ pipeline {
       steps {
         sh 'docker images'
         sh 'docker build -t getting-started .'
-        sh 'docker images'
         sh 'docker run -d -p 3000:3000 getting-started'
         
       }
