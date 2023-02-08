@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps {
-        sh 'docker build -t getting-started .'
+        sh 'docker build -t --priviledged getting-started .'
         sh 'docker run -d -p 3000:3000 getting-started'
         
       }
