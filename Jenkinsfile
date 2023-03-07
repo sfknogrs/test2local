@@ -1,27 +1,28 @@
 pipeline {
   agent any
-  environment {
-    IMAGENAME = "devopstestjenkins"
-  
-  }
   stages {
-    stage('Docker Build') {
+    stage('Checkout') {
       steps {
-        sh 'sudo su'
-        sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker'
-        sh 'docker build -t --priviledged getting-started .'
-        sh 'docker run -d -p 3000:3000 getting-started'
-        
+        git 'https://github.com/docker/getting-started.git'
       }
     }
-    stage('Terraform') {
+    stage('Build') {
       steps {
-        sh 'terraform version'
-        sh 'terraform init'
-        sh 'terraform plan'
-        sh 'terraform apple -auto-approve'
-        sh 'terraform output'
+        sh 'docker build -t getting-started .'
       }
-    } 
-  }   
+    }
+    stage('Run') {
+      steps {
+        sh 'docker run -p 3000:3000 getting-started'
+      }
+    }
+    stage('Verify') {
+      steps {
+        timeout(time: 10, unit: 'SECONDS') {
+          sh 'while ! curl -sSf http://localhost:3000 > /dev/null; do sleep 1; done'
+        }
+      }
+    }
+  }
 }
+
