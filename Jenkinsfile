@@ -8,15 +8,15 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        git 'https://github.com/your-repo/your-project.git'
+        git 'https://github.com/sfknogrs/test2local.git'
         sh 'npm install'
         sh 'npm run build'
       }
     }
     stage('Dockerize') {
       steps {
-        sh 'docker build -t your-project .'
-        sh 'docker run -p 3000:3000 your-project'
+        sh 'docker build -t getting-started .'
+        sh 'docker run -p 3000:3000 getting-started'
       }
     }
   }
