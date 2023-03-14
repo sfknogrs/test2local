@@ -1,21 +1,23 @@
 pipeline {
-  agent any
-  stages {
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/docker/getting-started.git'
-      }
+  agent {
+    docker {
+      image 'node:14'
+      args '-p 4000:3000'
     }
+  }
+  stages {
     stage('Build') {
       steps {
-        sh 'docker build -t getting-started .'
+        git 'https://github.com/your-repo/your-project.git'
+        sh 'npm install'
+        sh 'npm run build'
       }
     }
-    stage('Run') {
+    stage('Dockerize') {
       steps {
-        sh 'docker run -p 4000:3000 getting-started'
+        sh 'docker build -t your-project .'
+        sh 'docker run -p 3000:3000 your-project'
       }
     }
   }
 }
-
