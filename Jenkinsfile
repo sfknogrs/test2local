@@ -16,7 +16,7 @@ pipeline {
     stage('Dockerize') {
       steps {
         sh 'docker build -t getting-started .'
-        sh 'docker run -p 3000:3000 getting-started'
+        sh 'docker run -p 4000:3000 getting-started'
       }
     }
   }
